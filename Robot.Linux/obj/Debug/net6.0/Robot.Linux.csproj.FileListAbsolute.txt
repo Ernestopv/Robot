@@ -1,0 +1,12 @@
+C:\Users\Netho\source\repos\Robot\Robot.Linux\bin\Debug\net6.0\Robot.Linux.deps.json
+C:\Users\Netho\source\repos\Robot\Robot.Linux\bin\Debug\net6.0\Robot.Linux.dll
+C:\Users\Netho\source\repos\Robot\Robot.Linux\bin\Debug\net6.0\ref\Robot.Linux.dll
+C:\Users\Netho\source\repos\Robot\Robot.Linux\bin\Debug\net6.0\Robot.Linux.pdb
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\Robot.Linux.csproj.AssemblyReference.cache
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\Robot.Linux.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\Robot.Linux.AssemblyInfoInputs.cache
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\Robot.Linux.AssemblyInfo.cs
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\Robot.Linux.csproj.CoreCompileInputs.cache
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\Robot.Linux.dll
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\ref\Robot.Linux.dll
+C:\Users\Netho\source\repos\Robot\Robot.Linux\obj\Debug\net6.0\Robot.Linux.pdb

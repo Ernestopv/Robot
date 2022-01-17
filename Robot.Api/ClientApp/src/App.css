@@ -1,0 +1,120 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.battery {
+  position: absolute;
+  display: block;
+  margin: 35px 0 0 5px;
+  background: greenyellow;
+  width: 20px;
+  height: 9px;
+  float: left;
+  margin-left: 38%;
+  margin-top: 1.5%;
+}
+
+.battery:before {
+  content: "";
+  display: block;
+  background: transparent;
+  border: 6px solid #ffffff;
+  margin: -12px;
+  width: 80px;
+  height: 30px;
+  position: absolute;
+  border-radius: 2px;
+}
+
+.battery.empty {
+  width: 0;
+}
+.battery.almostempty {
+  width: 7px;
+  background-color: red;
+}
+
+.battery.quarter {
+  width: 14.5px;
+  background-color: orange;
+}
+
+.battery.half {
+  width: 29px;
+}
+.battery.full {
+  width: 58px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  /* styles for mobile browsers smaller than 480px; (iPhone) */
+
+  .battery {
+    position: absolute;
+    display: block;
+    margin: 35px 0 0 5px;
+    background: greenyellow;
+    width: 20px;
+    height: 9px;
+    float: left;
+    margin-left: 64%;
+    margin-top: 4%;
+  }
+}
+
+.charging {
+  width: 20px;
+  height: 9px;
+  background-color: rgb(0, 255, 149);
+  animation-name: chargingColors;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes chargingColors {
+  25% {
+    background-color: rgb(64, 185, 64);
+  }
+  50% {
+    background-color: greenyellow;
+  }
+}
+
+.redlevelWarning {
+  color: red;
+}

@@ -1,0 +1,17 @@
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\Robot.Services.deps.json
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\Robot.Services.dll
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\ref\Robot.Services.dll
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\Robot.Services.pdb
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\Robot.L298N.dll
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\Robot.Models.dll
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\Robot.L298N.pdb
+C:\Users\Netho\source\repos\Robot\Robot.Services\bin\Release\net6.0\Robot.Models.pdb
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.csproj.AssemblyReference.cache
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.AssemblyInfoInputs.cache
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.AssemblyInfo.cs
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.csproj.CoreCompileInputs.cache
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.csproj.CopyComplete
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.dll
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\ref\Robot.Services.dll
+C:\Users\Netho\source\repos\Robot\Robot.Services\obj\Release\net6.0\Robot.Services.pdb
