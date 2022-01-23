@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Joystick } from "react-joystick-component";
 import axios from "axios";
 import {
@@ -82,18 +82,78 @@ function DrivePanel() {
 }
 
 function Panel() {
+  const [charging, setCharging] = useState(false);
+  const [battery, setBattery] = useState(0);
+  const [cameraOn, setCameraOn] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      await handleBatteryStatus();
+      await CameraStatus();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleBatteryStatus = async () => {
+    let response = await axios.get("util/battery");
+
+    console.log(response.data);
+    setBattery(response.data.percentage);
+    setCharging(response.data.charging);
+  };
+
+  const HandleBatteryLevel = () => {
+    let value = "";
+    if (charging) value = "charging";
+    if (battery <= 3) return "empty " + value;
+    if (battery <= 10) return "almostempty " + value;
+    if (battery <= 25) return "quarter " + value;
+    if (battery <= 50) return "half " + value;
+    if (battery <= 75) return "morethanhalf " + value;
+    if (battery <= 100) return "full " + value;
+  };
+
+  const CameraStatus = async () => {
+    let response = await axios.get("util/CameraStatus");
+
+    setCameraOn(response.data.isCameraOn);
+  };
+
+  const CameraAction = () => {
+    if (cameraOn) return "http://192.168.0.48:8090/?action=stream";
+    else return holder;
+  };
+
   return (
     <React.Fragment>
-      {/* <label>Charging... </label>
+      {battery <= 10 ? (
+        <label className="centerLabel redlevelWarning">Low battery !!!</label>
+      ) : (
+        ""
+      )}
+      {charging && battery < 100 ? (
+        <label className="centerLabel">
+          Charging...
+          <Spinner animation="border" size="sm" />{" "}
+        </label>
+      ) : (
+        ""
+      )}
+      {charging && battery === 100 ? (
+        <label className="centerLabel">Charged</label>
+      ) : (
+        ""
+      )}
 
-      <Spinner animation="border" size="sm" /> */}
-      {/* <label>Charged </label> */}
-
-      {/* <label className="redlevelWarning">Please charge low battery !</label> */}
-      <div className="battery half charging"> </div>
+      <div className={`battery + ${HandleBatteryLevel()}`}> </div>
 
       <Figure>
-        <Figure.Image width={500} height={480} alt="500x480" src={holder} />
+        <Figure.Image
+          width={500}
+          height={480}
+          alt="500x480"
+          src={`${CameraAction()}`}
+        />
       </Figure>
       <DrivePanel />
     </React.Fragment>

@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Offcanvas, Container, Nav, Button } from "react-bootstrap";
 import InputBar from "./utilities/inputBar";
+import axios from "axios";
 
 function NavbarTop() {
+  const [cameraOn, setCameraOn] = useState(false);
+
+  useEffect(() => {
+    CameraStatus();
+  });
+
+  const handleCameraON = async () => {
+    let response = await axios.get("util/CameraOn");
+
+    setCameraOn(response.data.isCameraOn);
+  };
+
+  const CameraStatus = async () => {
+    let response = await axios.get("util/CameraStatus");
+
+    setCameraOn(response.data.isCameraOn);
+  };
+
+  const handleCameraOFF = async () => {
+    let response = await axios.get("util/CameraOff");
+    setCameraOn(response.data.isCameraOn);
+  };
+
   return (
     <div>
       <Navbar bg="Dark" expand={false}>
@@ -31,7 +55,11 @@ function NavbarTop() {
                   <label>Camera</label>
                   <br />
                   <br />
-                  <Button>ON</Button>
+                  {cameraOn ? (
+                    <Button onClick={() => handleCameraOFF()}>OFF</Button>
+                  ) : (
+                    <Button onClick={() => handleCameraON()}>ON</Button>
+                  )}
                 </Nav.Link>
 
                 <Nav.Link href="#action3">
@@ -39,7 +67,7 @@ function NavbarTop() {
                   <label>Lights</label>
                   <br />
                   <br />
-                  <Button>ON</Button>
+                  <Button disabled>ON</Button>
                 </Nav.Link>
               </Nav>
             </Offcanvas.Body>

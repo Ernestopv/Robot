@@ -1,7 +1,9 @@
-using Robot.Services;
+using Robot.Models;
 using Robot.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
 builder.WebHost.ConfigureKestrel(
     options => options.ListenAnyIP(3000)
@@ -9,9 +11,12 @@ builder.WebHost.ConfigureKestrel(
 
 // Add services to the container.
 var services = builder.Services;
+services.AddOptions();
+services.Configure<Configuration>(builder.Configuration.GetSection("Camera"));
 services.AddControllersWithViews();
 services.AddEndpointsApiExplorer();
 services.AddSingleton<IMotorService, MotorService>();
+services.AddScoped<IUtilitesService, UtilitiesService>();
 
 
 

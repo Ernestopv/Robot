@@ -1,7 +1,14 @@
-﻿namespace Robot.Services.Implementation;
+﻿using Robot.Models;
+
+namespace Robot.Services.Implementation;
 
 public interface IUtilitesService
 {
-    public string GetIP();
+    string GetIP();
+    Task<BatteryResponse> GetBatteryStatus();
+
+    Task<CameraResponse> TurnOffCamera();
+
+    Task<CameraResponse> TurnOnCamera();
 }
 

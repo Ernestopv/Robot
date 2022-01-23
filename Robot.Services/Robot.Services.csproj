@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Robot.L298N\Robot.L298N.csproj" />
+    <ProjectReference Include="..\Robot.Linux\Robot.Linux.csproj" />
     <ProjectReference Include="..\Robot.Models\Robot.Models.csproj" />
   </ItemGroup>
 

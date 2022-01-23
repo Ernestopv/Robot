@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "d74487e7-93de-45b4-ba23-3d47d7be82c5": {
+      "ProjectGuid": "d74487e7-93de-45b4-ba23-3d47d7be82c5",
+      "DisplayName": "Robot.Api",
+      "ColorIndex": 0
+    },
+    "81351d5f-29cb-4188-8b38-42189f31586c": {
+      "ProjectGuid": "81351d5f-29cb-4188-8b38-42189f31586c",
+      "DisplayName": "Robot.L298N",
+      "ColorIndex": 1
+    },
+    "5bca0d26-20cf-418f-8acb-4dec86b184c0": {
+      "ProjectGuid": "5bca0d26-20cf-418f-8acb-4dec86b184c0",
+      "DisplayName": "Robot.Linux",
+      "ColorIndex": 2
+    },
+    "a6c16c56-e839-47e7-9d03-b93dc98c08df": {
+      "ProjectGuid": "a6c16c56-e839-47e7-9d03-b93dc98c08df",
+      "DisplayName": "Robot.Services",
+      "ColorIndex": 3
+    },
+    "254f4eed-91a7-40ba-af91-a42020e5c72a": {
+      "ProjectGuid": "254f4eed-91a7-40ba-af91-a42020e5c72a",
+      "DisplayName": "Robot.Models",
+      "ColorIndex": 4
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 5
+}

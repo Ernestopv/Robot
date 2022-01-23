@@ -70,5 +70,6 @@ public class MotorController : ControllerBase
 
         return Ok("Speed changed to " + config.Speed);
     }
+
 }
 

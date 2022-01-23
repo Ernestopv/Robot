@@ -77,6 +77,10 @@
 .battery.half {
   width: 29px;
 }
+
+.battery.morethanhalf {
+  width: 43.5px;
+}
 .battery.full {
   width: 58px;
 }
@@ -102,7 +106,7 @@
   height: 9px;
   background-color: rgb(0, 255, 149);
   animation-name: chargingColors;
-  animation-duration: 3s;
+  animation-duration: 5s;
   animation-iteration-count: infinite;
 }
 
@@ -112,6 +116,9 @@
   }
   50% {
     background-color: greenyellow;
+  }
+  75% {
+    background-color: yellow;
   }
 }
 

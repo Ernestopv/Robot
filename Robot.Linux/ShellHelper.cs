@@ -63,7 +63,7 @@ public static class ShellHelper
     /// <param name="cmd"></param>
     /// <param name="logger"></param>
     /// <returns></returns>
-    public static Task<int> Sh(this string cmd, ILogger logger)
+    public static async Task Sh(this string cmd, ILogger logger)
     {
         var source = new TaskCompletionSource<int>();
         var escapedArgs = cmd.Replace("\"", "\\\"");
@@ -80,25 +80,26 @@ public static class ShellHelper
             },
             EnableRaisingEvents = true
         };
-        process.Exited += (sender, args) =>
-        {
-            logger.LogWarning(process.StandardError.ReadToEnd());
-            logger.LogInformation(process.StandardOutput.ReadToEnd());
-            if (process.ExitCode == 0)
-            {
-                source.SetResult(0);
-            }
-            else
-            {
-                source.SetException(new Exception($"Command `{cmd}` failed with exit code `{process.ExitCode}`"));
-            }
+        //process.Exited += (sender, args) =>
+        //{
+        //    logger.LogWarning(process.StandardError.ReadToEnd());
+        //    logger.LogInformation(process.StandardOutput.ReadToEnd());
+        //    if (process.ExitCode == 0)
+        //    {
+        //        source.SetResult(0);
+        //    }
+        //    else
+        //    {
+        //        //source.SetException(new Exception($"Command `{cmd}` failed with exit code `{process.ExitCode}`"));
+        //    }
 
-            process.Dispose();
-        };
+        //    process.Dispose();
+        //};
 
         try
         {
             process.Start();
+            
         }
         catch (Exception e)
         {
@@ -106,7 +107,7 @@ public static class ShellHelper
             source.SetException(e);
         }
 
-        return source.Task;
+    
     }
 }
 

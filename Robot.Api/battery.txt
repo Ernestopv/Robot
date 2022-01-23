@@ -1,0 +1,4 @@
+﻿Load Voltage:   8.020 V
+Current:       -0.479900 A
+Power:          3.792 W
+Percent:       84.2%
