@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Robot.Models;
 using Robot.Services.Implementation;
 
@@ -19,9 +18,9 @@ namespace Robot.Api.Controllers
         [HttpGet("battery")]
         public async Task<IActionResult> GetBatteryResult()
         {
-            var result = await _utilitiesService.GetBatteryStatus();
+            //var result = await _utilitiesService.GetBatteryStatus();
 
-            return Ok(result);
+            return Ok(new BatteryResponse { Charging = true, Percentage = 10 });
         }
 
         [HttpGet("ConfigStatus")]
@@ -36,17 +35,24 @@ namespace Robot.Api.Controllers
         public async Task<IActionResult> SetCameraON()
         {
             Helpers.JsonFile.AddOrUpdateAppSetting("Camera", true);
-            var result = await _utilitiesService.TurnOnCamera();
+            // var result = await _utilitiesService.TurnOnCamera();
 
-            return Ok(result);
+            return Ok(new ConfigResponse { IsCameraOn = true, Speed = 0 });
         }
 
         [HttpGet("CameraOff")]
         public async Task<IActionResult> SetCameraOFF()
         {
-            var result = await _utilitiesService.TurnOffCamera();
+            //var result = await _utilitiesService.TurnOffCamera();
             Helpers.JsonFile.AddOrUpdateAppSetting("Camera", false);
 
+            return Ok(new ConfigResponse { IsCameraOn = false, Speed = 0 });
+        }
+
+        [HttpGet("Ip")]
+        public async Task<IActionResult> GetIpAddress()
+        {
+            var result = await _utilitiesService.GetIP();
             return Ok(result);
         }
     }

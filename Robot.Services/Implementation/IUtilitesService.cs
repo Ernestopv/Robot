@@ -4,7 +4,7 @@ namespace Robot.Services.Implementation;
 
 public interface IUtilitesService
 {
-    string GetIP();
+    Task<IpResponse> GetIP();
     Task<BatteryResponse> GetBatteryStatus();
 
     Task<ConfigResponse> TurnOffCamera();

@@ -28,9 +28,11 @@ namespace Robot.Services.Implementation
         }
 
 
-        public string GetIP()
+        public async Task<IpResponse> GetIP()
         {
-            return "";
+            await IPCommandAsync();
+            string ipText = await File.ReadAllTextAsync("IpAddress.txt");
+            return new IpResponse { Ip = ipText.Trim() };
         }
 
         public async Task<ConfigResponse> TurnOffCamera()
@@ -67,6 +69,10 @@ namespace Robot.Services.Implementation
             return false;
         }
 
+        private async Task<int> IPCommandAsync()
+        {
+            return await ShellHelper.Bash("hostname -I | awk '{print $1}' > /home/ubuntu/Robot/IpAddress.txt", _logger);
+        }
 
     }
 }

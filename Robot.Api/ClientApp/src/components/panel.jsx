@@ -119,8 +119,9 @@ function Panel() {
     setCameraOn(response.data.isCameraOn);
   };
 
-  const CameraAction = () => {
-    if (cameraOn) return "http://192.168.0.48:8090/?action=stream";
+  const CameraAction = async () => {
+    let response = await axios.get("util/Ip");
+    if (cameraOn) return "http://" + response.data.ip + ":8090/?action=stream";
     else return holder;
   };
 
