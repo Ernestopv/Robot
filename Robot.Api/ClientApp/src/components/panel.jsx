@@ -85,6 +85,7 @@ function Panel() {
   const [charging, setCharging] = useState(false);
   const [battery, setBattery] = useState(0);
   const [cameraOn, setCameraOn] = useState(false);
+  const [urlImage, setUrlImage] = useState(holder);
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -115,14 +116,15 @@ function Panel() {
 
   const CameraStatus = async () => {
     let response = await axios.get("util/ConfigStatus");
-
     setCameraOn(response.data.isCameraOn);
+    if (response.data.isCameraOn) CameraAction();
+    else setUrlImage(holder);
   };
 
   const CameraAction = async () => {
     let response = await axios.get("util/Ip");
-    if (cameraOn) return "http://" + response.data.ip + ":8090/?action=stream";
-    else return holder;
+    var url = "http://" + response.data.ip + ":8090/?action=stream";
+    setUrlImage(url);
   };
 
   return (
@@ -149,12 +151,7 @@ function Panel() {
       <div className={`battery + ${HandleBatteryLevel()}`}> </div>
 
       <Figure>
-        <Figure.Image
-          width={500}
-          height={480}
-          alt="500x480"
-          src={`${CameraAction()}`}
-        />
+        <Figure.Image width={500} height={480} alt="500x480" src={urlImage} />
       </Figure>
       <DrivePanel />
     </React.Fragment>
