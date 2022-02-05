@@ -23,8 +23,8 @@ public class MotorService : IMotorService, IDisposable
     {
         _logger = logger;
         var controller = new GpioController();
-        _MOTOR1 = new L298NDriver(146, 15, 41, controller);
-        _MOTOR2 = new L298NDriver(150, 133, 158, controller);
+        _MOTOR1 = new L298NDriver(12, 23, 24, controller);
+        _MOTOR2 = new L298NDriver(13, 21, 20, controller);
 
     }
 

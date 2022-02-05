@@ -18,9 +18,9 @@ namespace Robot.Api.Controllers
         [HttpGet("battery")]
         public async Task<IActionResult> GetBatteryResult()
         {
-            //var result = await _utilitiesService.GetBatteryStatus();
+            var result = await _utilitiesService.GetBatteryStatus();
 
-            return Ok(new BatteryResponse { Charging = true, Percentage = 10 });
+            return Ok(result);
         }
 
         [HttpGet("ConfigStatus")]
@@ -35,18 +35,18 @@ namespace Robot.Api.Controllers
         public async Task<IActionResult> SetCameraON()
         {
             Helpers.JsonFile.AddOrUpdateAppSetting("Camera", true);
-            // var result = await _utilitiesService.TurnOnCamera();
+             var result = await _utilitiesService.TurnOnCamera();
 
-            return Ok(new ConfigResponse { IsCameraOn = true, Speed = 0 });
+            return Ok(result);
         }
 
         [HttpGet("CameraOff")]
         public async Task<IActionResult> SetCameraOFF()
         {
-            //var result = await _utilitiesService.TurnOffCamera();
+            var result = await _utilitiesService.TurnOffCamera();
             Helpers.JsonFile.AddOrUpdateAppSetting("Camera", false);
 
-            return Ok(new ConfigResponse { IsCameraOn = false, Speed = 0 });
+            return Ok(result);
         }
 
         [HttpGet("Ip")]
