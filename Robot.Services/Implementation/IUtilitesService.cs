@@ -7,8 +7,8 @@ public interface IUtilitesService
     string GetIP();
     Task<BatteryResponse> GetBatteryStatus();
 
-    Task<CameraResponse> TurnOffCamera();
+    Task<ConfigResponse> TurnOffCamera();
 
-    Task<CameraResponse> TurnOnCamera();
+    Task<ConfigResponse> TurnOnCamera();
 }
 

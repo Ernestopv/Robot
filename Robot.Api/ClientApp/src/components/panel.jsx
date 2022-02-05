@@ -114,7 +114,7 @@ function Panel() {
   };
 
   const CameraStatus = async () => {
-    let response = await axios.get("util/CameraStatus");
+    let response = await axios.get("util/ConfigStatus");
 
     setCameraOn(response.data.isCameraOn);
   };

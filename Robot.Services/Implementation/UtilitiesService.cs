@@ -33,17 +33,17 @@ namespace Robot.Services.Implementation
             return "";
         }
 
-        public async Task<CameraResponse> TurnOffCamera()
+        public async Task<ConfigResponse> TurnOffCamera()
         {
-            return new CameraResponse()
+            return new ConfigResponse()
             {
                 IsCameraOn = await TurnOFF()
             };
         }
 
-        public async Task<CameraResponse> TurnOnCamera()
+        public async Task<ConfigResponse> TurnOnCamera()
         {
-            return new CameraResponse()
+            return new ConfigResponse()
             {
                 IsCameraOn = await TurnON()
             };

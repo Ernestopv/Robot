@@ -9,11 +9,26 @@ class InputBar extends React.Component {
     values: [1.0],
   };
 
+  componentDidMount() {
+    console.log("mount");
+    this.Status();
+  }
+
+  componentWillUnmount() {}
+
+  Status = async () => {
+    console.log("response");
+    let response = await axios.get("util/ConfigStatus");
+    console.log(response);
+    this.setState({ values: [response.data.speed] });
+  };
+
   setSpeed = (speed) => {
-    console.log(speed);
     let requestSpeed = {
-      Speed: speed,
+      Speed: speed[0].toFixed(1),
     };
+    console.log(requestSpeed.Speed);
+    this.setState({ values: speed });
     axios.post("motor/speed", requestSpeed);
   };
 
@@ -38,7 +53,7 @@ class InputBar extends React.Component {
             step={STEP}
             min={MIN}
             max={MAX}
-            onChange={(values) => this.setState({ values })}
+            onChange={(values) => this.setSpeed(values)}
             renderTrack={({ props, children }) => (
               <div
                 onMouseDown={props.onMouseDown}
@@ -96,7 +111,6 @@ class InputBar extends React.Component {
           />
           <output style={{ marginTop: "30px" }} id="output">
             {this.GetPercentage() + "%"}
-            {this.setSpeed(this.state.values[0].toFixed(1))}
           </output>
         </div>
         <hr />

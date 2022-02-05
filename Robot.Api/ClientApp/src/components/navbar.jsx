@@ -7,7 +7,7 @@ function NavbarTop() {
   const [cameraOn, setCameraOn] = useState(false);
 
   useEffect(() => {
-    CameraStatus();
+    Status();
   });
 
   const handleCameraON = async () => {
@@ -16,8 +16,8 @@ function NavbarTop() {
     setCameraOn(response.data.isCameraOn);
   };
 
-  const CameraStatus = async () => {
-    let response = await axios.get("util/CameraStatus");
+  const Status = async () => {
+    let response = await axios.get("util/ConfigStatus");
 
     setCameraOn(response.data.isCameraOn);
   };

@@ -10,11 +10,9 @@ namespace Robot.Api.Controllers
     public class UtilController : ControllerBase
     {
         private readonly IUtilitesService _utilitiesService;
-        private readonly Configuration _config;
-        public UtilController(IUtilitesService utilitiesService, IOptions<Configuration> config)
+        public UtilController(IUtilitesService utilitiesService)
         {
             _utilitiesService = utilitiesService;
-            _config = config.Value;
         }
 
 
@@ -26,10 +24,11 @@ namespace Robot.Api.Controllers
             return Ok(result);
         }
 
-        [HttpGet("CameraStatus")]
-        public IActionResult GetCameraStatus()
+        [HttpGet("ConfigStatus")]
+        public IActionResult GetConfigStatus()
         {
-            var response = new CameraResponse() { IsCameraOn = Helpers.JsonFile.ReadAppSetting("Camera")};
+            var response = Helpers.JsonFile.ReadAppSetting("Camera", "Speed");
+
             return Ok(response);
         }
 
@@ -38,7 +37,6 @@ namespace Robot.Api.Controllers
         {
             Helpers.JsonFile.AddOrUpdateAppSetting("Camera", true);
             var result = await _utilitiesService.TurnOnCamera();
-        
 
             return Ok(result);
         }
@@ -47,7 +45,7 @@ namespace Robot.Api.Controllers
         public async Task<IActionResult> SetCameraOFF()
         {
             var result = await _utilitiesService.TurnOffCamera();
-           Helpers.JsonFile.AddOrUpdateAppSetting("Camera", false);
+            Helpers.JsonFile.AddOrUpdateAppSetting("Camera", false);
 
             return Ok(result);
         }

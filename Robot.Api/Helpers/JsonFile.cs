@@ -1,4 +1,6 @@
-﻿namespace Robot.Api.Helpers;
+﻿using Robot.Models;
+
+namespace Robot.Api.Helpers;
 
     public static class JsonFile
     {
@@ -30,31 +32,33 @@
     }
 
 
-    public static bool ReadAppSetting(string key)
+    public static ConfigResponse ReadAppSetting(string camera, string speed)
     {
         try
         {
-            var isCameraOn = false;
+            var config = new ConfigResponse();
             var filePath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
             string json = File.ReadAllText(filePath);
             dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
 
-            var sectionPath = key.Split(":")[0];
+            var cameraPath = camera.Split(":")[0];
+            var speedPath = speed.Split(":")[0];
 
-            if (!string.IsNullOrEmpty(sectionPath))
+            if (!string.IsNullOrEmpty(cameraPath) && !string.IsNullOrEmpty(cameraPath))
             {
+                if(cameraPath.Equals("Camera")) config.IsCameraOn = (bool)jsonObj[cameraPath];
+                if (speedPath.Equals("Speed")) config.Speed = Math.Round((double)jsonObj[speedPath],2);
 
-                isCameraOn = (bool) jsonObj[sectionPath] ;
             }
 
-            return isCameraOn;
+            return config;
           
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
             Console.WriteLine("Error writing app settings");
-            return false;
+            return null;
         }
     }
 

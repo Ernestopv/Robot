@@ -13,6 +13,7 @@ builder.WebHost.ConfigureKestrel(
 var services = builder.Services;
 services.AddOptions();
 services.Configure<Configuration>(builder.Configuration.GetSection("Camera"));
+services.Configure<Configuration>(builder.Configuration.GetSection("Speed"));
 services.AddControllersWithViews();
 services.AddEndpointsApiExplorer();
 services.AddSingleton<IMotorService, MotorService>();
