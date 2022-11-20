@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Robot.Models;
-using Robot.Services.Implementation;
+using Robot.Services.Interfaces;
 
 namespace Robot.Api.Controllers;
 
@@ -39,7 +39,7 @@ public class MotorController : ControllerBase
     [HttpPost("direction")]
     public IActionResult PostDirection([FromBody] RequestDirection go)
     {
-        _logger.LogInformation($"Tank Running!..Angle:{go.angle} " + $"Direction:{go.direction}");
+        _logger.LogInformation($"Tank Running!..Angle:{go.Angle} " + $"Direction:{go.Direction}");
         var response = _motorService.SetDirection(go);
         return Ok(response);
     }

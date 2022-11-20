@@ -1,5 +1,8 @@
-using Robot.Models;
+using Microsoft.OpenApi.Models;
+using Robot.Infrastructure.Settings;
 using Robot.Services.Implementation;
+using Robot.Services.Interfaces;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +15,18 @@ builder.WebHost.ConfigureKestrel(
 // Add services to the container.
 var services = builder.Services;
 services.AddOptions();
-services.Configure<Configuration>(builder.Configuration.GetSection("Camera"));
-services.Configure<Configuration>(builder.Configuration.GetSection("Speed"));
+services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Robot.Api", Version = "v1" });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+    c.EnableAnnotations();
+});
+
+var appSettings = builder.Configuration.Get<AppSettings>();
+
+services.AddSingleton(appSettings);
 services.AddControllersWithViews();
 services.AddEndpointsApiExplorer();
 services.AddSingleton<IMotorService, MotorService>();
@@ -27,6 +40,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Robot.Api v1");
+    });
 }
 // global cors policy
 app.UseCors(x => x

@@ -9,10 +9,10 @@ public class RequestDirection
     /// <summary>
     /// Gets or sets angle
     /// </summary>
-    public string angle { get; set; }
+    public string Angle { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets direction
     /// </summary>
-    public string direction { get; set; }
+    public string Direction { get; set; } = null!;
 }

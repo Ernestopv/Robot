@@ -63,7 +63,7 @@ public static class ShellHelper
     /// <param name="cmd"></param>
     /// <param name="logger"></param>
     /// <returns></returns>
-    public static async Task Sh(this string cmd, ILogger logger)
+    public static Task Sh(this string cmd, ILogger logger)
     {
         var source = new TaskCompletionSource<int>();
         var escapedArgs = cmd.Replace("\"", "\\\"");
@@ -107,7 +107,7 @@ public static class ShellHelper
             source.SetException(e);
         }
 
-    
+        return Task.CompletedTask;
     }
 }
 

@@ -2,6 +2,6 @@
 
 public class IpResponse
 {
-    public string Ip { get; set; }
+    public string? Ip { get; set; }
 }
 

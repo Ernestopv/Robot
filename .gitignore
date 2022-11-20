@@ -1,0 +1,20 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.v2
+*.config
+/.vs/Robot/FileContentIndex
+/Robot.Infrastructure/bin/Debug/net6.0
+/Robot.Infrastructure/obj
+/Robot.L298N/bin
+/Robot.L298N/obj/Debug/net6.0
+/Robot.L298N/obj
+/Robot.Linux/bin
+/Robot.Linux/obj
+/Robot.Models/bin
+/Robot.Models/obj
+/Robot.Services/bin
+/Robot.Services/obj
+/Robot.sln.DotSettings.user
+/.editorconfig

@@ -1,37 +1,56 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Robot.Infrastructure.Settings;
 using Robot.Linux;
 using Robot.Models;
+using Robot.Services.Interfaces;
 
 namespace Robot.Services.Implementation
 {
     public class UtilitiesService : IUtilitesService
     {
         private readonly ILogger<UtilitiesService> _logger;
-        public UtilitiesService(ILogger<UtilitiesService> logger)
+
+        private readonly AppSettings? _appSettings;
+        public UtilitiesService(ILogger<UtilitiesService> logger,IConfiguration configuration)
         {
             _logger = logger;
+            _appSettings = configuration.Get<AppSettings>();
         }
         public async Task<BatteryResponse> GetBatteryStatus()
         {
-            await BatteryCommandAsync();
+            switch (_appSettings!.IsUpsAvailable)
+            {
+                case true:
+                {
+                    await BatteryCommandAsync();
 
-            string[] lines = await File.ReadAllLinesAsync("battery.txt");
-            var chargeData = lines[1];
-            var percentageData = lines[3].Split(":");
-            string percentage = percentageData[1].Replace("%", "").Trim();
-            var battery = new BatteryResponse();
-            if (!chargeData.Contains('-')) battery.Charging = true;
-            else battery.Charging = false;
-            battery.Percentage = (int)Convert.ToSingle(percentage);
+                    var lines = await File.ReadAllLinesAsync("battery.txt");
+                    var chargeData = lines[1];
+                    var percentageData = lines[3].Split(":");
+                    var percentage = percentageData[1].Replace("%", "").Trim();
+                    var batteryResponse = new BatteryResponse
+                    {
+                        Charging = !chargeData.Contains('-'),
+                        Percentage = (int)Convert.ToSingle(percentage)
+                    };
 
-            return battery;
+                    return batteryResponse;
+                }
+                default:
+                    return new BatteryResponse()
+                    {
+                        Charging = false,
+                        Percentage = 0,
+                    };
+            }
         }
 
 
         public async Task<IpResponse> GetIP()
         {
-            await IPCommandAsync();
-            string ipText = await File.ReadAllTextAsync("IpAddress.txt");
+            await IpCommandAsync();
+            var ipText = await File.ReadAllTextAsync("IpAddress.txt");
             return new IpResponse { Ip = ipText.Trim() };
         }
 
@@ -39,7 +58,7 @@ namespace Robot.Services.Implementation
         {
             return new ConfigResponse()
             {
-                IsCameraOn = await TurnOFF()
+                IsCameraOn = _appSettings!.IsCameraAvailable && await TurnOff()
             };
         }
 
@@ -47,31 +66,31 @@ namespace Robot.Services.Implementation
         {
             return new ConfigResponse()
             {
-                IsCameraOn = await TurnON()
+                IsCameraOn = _appSettings!.IsCameraAvailable && await TurnON()
             };
         }
 
 
         private async Task<int> BatteryCommandAsync()
         {
-            return await ShellHelper.Bash(" sudo python3  /home/ubuntu/UPS_HAT/INA219.py > /home/ubuntu/Robot/battery.txt", _logger);
+            return await " sudo python3  /home/ubuntu/UPS_HAT/INA219.py > /home/ubuntu/Robot/battery.txt".Bash(_logger);
         }
 
         private async Task<bool> TurnON()
         {
-            await ShellHelper.Sh(" sudo sh /home/ubuntu/mjpg-streamer/Start_mjpg_Streamer.sh", _logger);
+            await " sudo sh /home/ubuntu/mjpg-streamer/Start_mjpg_Streamer.sh".Sh(_logger);
             return true;
         }
 
-        private async Task<bool> TurnOFF()
+        private async Task<bool> TurnOff()
         {
-            await ShellHelper.Bash("sudo killall  mjpg_streamer", _logger);
+            await "sudo killall  mjpg_streamer".Bash(_logger);
             return false;
         }
 
-        private async Task<int> IPCommandAsync()
+        private async Task<int> IpCommandAsync()
         {
-            return await ShellHelper.Bash("hostname -I | awk '{print $1}' > /home/ubuntu/Robot/IpAddress.txt", _logger);
+            return await "hostname -I | awk '{print $1}' > /home/ubuntu/Robot/IpAddress.txt".Bash(_logger);
         }
 
     }

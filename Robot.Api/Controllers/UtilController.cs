@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Robot.Infrastructure.Settings;
 using Robot.Models;
-using Robot.Services.Implementation;
+using Robot.Services.Interfaces;
 
 namespace Robot.Api.Controllers
 {
@@ -9,8 +10,11 @@ namespace Robot.Api.Controllers
     public class UtilController : ControllerBase
     {
         private readonly IUtilitesService _utilitiesService;
-        public UtilController(IUtilitesService utilitiesService)
+
+        private readonly AppSettings? _appSettings;
+        public UtilController(IUtilitesService utilitiesService,IConfiguration configuration)
         {
+            _appSettings = configuration.Get<AppSettings>();
             _utilitiesService = utilitiesService;
         }
 
@@ -26,7 +30,11 @@ namespace Robot.Api.Controllers
         [HttpGet("ConfigStatus")]
         public IActionResult GetConfigStatus()
         {
-            var response = Helpers.JsonFile.ReadAppSetting("Camera", "Speed");
+            var response = new ConfigResponse()
+            {
+                IsCameraOn = _appSettings!.Camera,
+                Speed = _appSettings.Speed,
+            };
 
             return Ok(response);
         }
