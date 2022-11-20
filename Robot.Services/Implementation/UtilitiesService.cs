@@ -41,7 +41,7 @@ namespace Robot.Services.Implementation
                     return new BatteryResponse()
                     {
                         Charging = false,
-                        Percentage = 0,
+                        Percentage = 50,
                     };
             }
         }

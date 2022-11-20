@@ -8,9 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-builder.WebHost.ConfigureKestrel(
-    options => options.ListenAnyIP(3000)
-);
+
 
 // Add services to the container.
 var services = builder.Services;
@@ -25,6 +23,13 @@ services.AddSwaggerGen(c =>
 });
 
 var appSettings = builder.Configuration.Get<AppSettings>();
+
+if (!appSettings!.IsDevelopment)
+{
+    builder.WebHost.ConfigureKestrel(
+        options => options.ListenAnyIP(3000)
+    );
+}
 
 services.AddSingleton(appSettings);
 services.AddControllersWithViews();
