@@ -18,3 +18,4 @@
 /Robot.Services/obj
 /Robot.sln.DotSettings.user
 /.editorconfig
+/Robot.Infrastructure/bin/Release/net6.0

@@ -13,14 +13,14 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnCh
 // Add services to the container.
 var services = builder.Services;
 services.AddOptions();
-services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Robot.Api", Version = "v1" });
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
-    c.EnableAnnotations();
-});
+//services.AddSwaggerGen(c =>
+//{
+//    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Robot.Api", Version = "v1" });
+//    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+//    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+//    c.IncludeXmlComments(xmlPath);
+//    c.EnableAnnotations();
+//});
 
 var appSettings = builder.Configuration.Get<AppSettings>();
 
@@ -45,12 +45,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Robot.Api v1");
-    });
+    //app.UseDeveloperExceptionPage();
+    //app.UseSwagger();
+    //app.UseSwaggerUI(c =>
+    //{
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Robot.Api v1");
+    //});
 }
 // global cors policy
 app.UseCors(x => x
