@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Robot.Infrastructure.Settings;
 using Robot.Linux;
 using Robot.Models;
+using Robot.Services.Helpers;
 using Robot.Services.Interfaces;
 
 namespace Robot.Services.Implementation
@@ -11,11 +13,11 @@ namespace Robot.Services.Implementation
     {
         private readonly ILogger<UtilitiesService> _logger;
 
-        private readonly AppSettings? _appSettings;
-        public UtilitiesService(ILogger<UtilitiesService> logger,IConfiguration configuration)
+        private readonly AppSettings _appSettings;
+        public UtilitiesService(ILogger<UtilitiesService> logger, IOptionsSnapshot<AppSettings> appSettings)
         {
             _logger = logger;
-            _appSettings = configuration.Get<AppSettings>();
+            _appSettings = appSettings.Value;
         }
         public async Task<BatteryResponse> GetBatteryStatus()
         {
@@ -49,36 +51,50 @@ namespace Robot.Services.Implementation
 
         public async Task<IpResponse> GetIP()
         {
-            await IpCommandAsync();
-            var ipText = await File.ReadAllTextAsync("IpAddress.txt");
-            return new IpResponse { Ip = ipText.Trim() };
+            if (_appSettings!.IsCameraAvailable)
+            {
+                await IpCommandAsync();
+                var ipText = await File.ReadAllTextAsync("IpAddress.txt");
+                return new IpResponse { Ip = ipText.Trim() };
+            }
+            return new IpResponse { Ip = "localhost" };
         }
 
-        public async Task<ConfigResponse> TurnOffCamera()
+        public async Task<ConfigResponse> TurnOnOffCamera( bool isOn)
         {
-            return new ConfigResponse()
+            var configResponse = new ConfigResponse();
+            JsonFile.AddOrUpdateAppSetting("Camera", isOn);
+            if (_appSettings!.IsCameraAvailable)
             {
-                IsCameraOn = _appSettings!.IsCameraAvailable && await TurnOff()
-            };
-        }
+                if (isOn)
+                {
+                    var cameraStatus = await TurnON();
+                    configResponse.IsCameraOn = cameraStatus;
+                    return configResponse;
+                }
+                else
+                {
+                    var cameraStatus = await TurnOff();
+                    configResponse.IsCameraOn = cameraStatus;
+                    return configResponse;
 
-        public async Task<ConfigResponse> TurnOnCamera()
-        {
-            return new ConfigResponse()
-            {
-                IsCameraOn = _appSettings!.IsCameraAvailable && await TurnON()
-            };
+                }
+            
+            }
+
+            configResponse.IsCameraOn = isOn;
+            return configResponse;
         }
 
 
         private async Task<int> BatteryCommandAsync()
         {
-            return await " sudo python3  /home/ubuntu/UPS_HAT/INA219.py > /home/ubuntu/Robot/battery.txt".Bash(_logger);
+            return await "sudo python3  /home/ubuntu/UPS_HAT/INA219.py > /home/ubuntu/Robot/battery.txt".Bash(_logger);
         }
 
         private async Task<bool> TurnON()
         {
-            await " sudo sh /home/ubuntu/mjpg-streamer/Start_mjpg_Streamer.sh".Sh(_logger);
+            await "sudo sh /home/ubuntu/mjpg-streamer/Start_mjpg_Streamer.sh".Sh(_logger);
             return true;
         }
 

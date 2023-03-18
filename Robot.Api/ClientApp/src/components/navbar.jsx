@@ -10,22 +10,30 @@ function NavbarTop() {
     Status();
   });
 
-  const handleCameraON = async () => {
-    let response = await axios.get("util/CameraOn");
+  const handleCameraON = async (isOn) => {
+
+    const config = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  params: {
+     isOn: isOn
+  }
+}
+
+    let response = await axios.post("util/Camera", {isOn},config);
 
     setCameraOn(response.data.isCameraOn);
   };
 
   const Status = async () => {
     let response = await axios.get("util/ConfigStatus");
+    console.log(response);
 
     setCameraOn(response.data.isCameraOn);
   };
 
-  const handleCameraOFF = async () => {
-    let response = await axios.get("util/CameraOff");
-    setCameraOn(response.data.isCameraOn);
-  };
+  
 
   return (
     <div>
@@ -56,9 +64,9 @@ function NavbarTop() {
                   <br />
                   <br />
                   {cameraOn ? (
-                    <Button onClick={() => handleCameraOFF()}>OFF</Button>
+                    <Button onClick={() => handleCameraON(false)}>OFF</Button>
                   ) : (
-                    <Button onClick={() => handleCameraON()}>ON</Button>
+                    <Button onClick={() => handleCameraON(true)}>ON</Button>
                   )}
                 </Nav.Link>
 

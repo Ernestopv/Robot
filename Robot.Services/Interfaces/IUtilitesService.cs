@@ -6,9 +6,6 @@ public interface IUtilitesService
 {
     Task<IpResponse> GetIP();
     Task<BatteryResponse> GetBatteryStatus();
-
-    Task<ConfigResponse> TurnOffCamera();
-
-    Task<ConfigResponse> TurnOnCamera();
+    Task<ConfigResponse> TurnOnOffCamera(bool isOn);
 }
 

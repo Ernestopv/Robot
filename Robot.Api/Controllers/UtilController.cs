@@ -39,23 +39,16 @@ namespace Robot.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("CameraOn")]
-        public async Task<IActionResult> SetCameraON()
+        [HttpPost("Camera")]
+        public async Task<IActionResult> SetCameraOnOff(bool isOn)
         {
-            Helpers.JsonFile.AddOrUpdateAppSetting("Camera", true);
-             var result = await _utilitiesService.TurnOnCamera();
-
+           
+            var result = await _utilitiesService.TurnOnOffCamera(isOn);
+            
             return Ok(result);
         }
 
-        [HttpGet("CameraOff")]
-        public async Task<IActionResult> SetCameraOFF()
-        {
-            var result = await _utilitiesService.TurnOffCamera();
-            Helpers.JsonFile.AddOrUpdateAppSetting("Camera", false);
-
-            return Ok(result);
-        }
+  
 
         [HttpGet("Ip")]
         public async Task<IActionResult> GetIpAddress()

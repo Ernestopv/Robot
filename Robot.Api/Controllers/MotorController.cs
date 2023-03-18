@@ -67,7 +67,7 @@ public class MotorController : ControllerBase
     {
         _logger.LogWarning("Speed changed to " + config.Speed);
         _motorService.SetSpeed(config.Speed);
-        Helpers.JsonFile.AddOrUpdateAppSetting("Speed", config.Speed);
+     
 
         return Ok("Speed changed to " + config.Speed);
     }

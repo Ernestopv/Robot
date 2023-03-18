@@ -6,9 +6,6 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
-
 
 // Add services to the container.
 var services = builder.Services;
@@ -21,7 +18,8 @@ services.AddOptions();
 //    c.IncludeXmlComments(xmlPath);
 //    c.EnableAnnotations();
 //});
-
+IConfiguration configuration = builder.Configuration;
+ builder.Services.Configure<AppSettings>(configuration);
 var appSettings = builder.Configuration.Get<AppSettings>();
 
 if (!appSettings!.IsDevelopment)
@@ -31,7 +29,6 @@ if (!appSettings!.IsDevelopment)
     );
 }
 
-services.AddSingleton(appSettings);
 services.AddControllersWithViews();
 services.AddEndpointsApiExplorer();
 services.AddSingleton<IMotorService, MotorService>();

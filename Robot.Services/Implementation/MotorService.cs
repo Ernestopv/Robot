@@ -6,6 +6,7 @@ using Robot.Models;
 using Robot.Services.Interfaces;
 using System.Device.Gpio;
 using Robot.Services.Mocks;
+using Robot.Services.Helpers;
 
 namespace Robot.Services.Implementation;
 
@@ -84,6 +85,7 @@ public class MotorService : IMotorService, IDisposable
     /// <param name="speed">selected speed </param>
     public void SetSpeed(double speed)
     {
+        JsonFile.AddOrUpdateAppSetting("Speed", speed);
         _motor1.Speed = speed;
         _motor2.Speed = speed;
     }
