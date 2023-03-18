@@ -10,16 +10,13 @@ class InputBar extends React.Component {
   };
 
   componentDidMount() {
-    console.log("mount");
     this.Status();
   }
 
   componentWillUnmount() {}
 
   Status = async () => {
-    console.log("response");
     let response = await axios.get("util/ConfigStatus");
-    console.log(response);
     this.setState({ values: [response.data.speed] });
   };
 

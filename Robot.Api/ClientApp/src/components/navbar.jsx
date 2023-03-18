@@ -6,9 +6,7 @@ import axios from "axios";
 function NavbarTop() {
   const [cameraOn, setCameraOn] = useState(false);
 
-  useEffect(() => {
-    Status();
-  });
+
 
   const handleCameraON = async (isOn) => {
 
@@ -21,17 +19,12 @@ function NavbarTop() {
   }
 }
 
-    let response = await axios.post("util/Camera", {isOn},config);
+    let response = await axios.post("util/Camera", { isOn }, config);
 
     setCameraOn(response.data.isCameraOn);
   };
 
-  const Status = async () => {
-    let response = await axios.get("util/ConfigStatus");
-    console.log(response);
 
-    setCameraOn(response.data.isCameraOn);
-  };
 
   
 
