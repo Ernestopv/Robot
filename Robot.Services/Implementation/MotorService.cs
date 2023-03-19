@@ -43,9 +43,7 @@ public class MotorService : IMotorService, IDisposable
         if (go.Angle.Equals("up") && go.Direction.Equals("FORWARD")) Forward();
         if (go.Angle.Equals("up") && go.Direction.Equals("RIGHT")) Right();
         if (go.Angle.Equals("up") && go.Direction.Equals("LEFT")) Left();
-        if (go.Angle.Equals("down") && go.Direction.Equals("RIGHT")) Reverse_Right();
-        if (go.Angle.Equals("down") && go.Direction.Equals("LEFT")) Reverse_Left();
-        if (go.Angle.Equals("down") && go.Direction.Equals("BACKWARD")) Reverse();
+        if (go.Angle.Equals("down")) Reverse();
 
         return go;
     }
@@ -101,29 +99,11 @@ public class MotorService : IMotorService, IDisposable
     }
 
     /// <summary>
-    /// Reverse Left
-    /// </summary>
-    private void Reverse_Left()
-    {
-        _motor1.Stop();
-        _motor2.Reverse();
-    }
-
-    /// <summary>
     /// Right
     /// </summary>
     private void Right()
     {
         _motor1.Forward();
-        _motor2.Stop();
-    }
-
-    /// <summary>
-    /// Reverse Right
-    /// </summary>
-    private void Reverse_Right()
-    {
-        _motor1.Reverse();
         _motor2.Stop();
     }
 

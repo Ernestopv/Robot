@@ -40,18 +40,17 @@ const handleMove = (e) => {
   if (e.y <= -1) {
     yResult = "down";
   }
+
   let directionObj = {
     angle: yResult,
     direction: e.direction,
   };
-  console.log(directionObj);
   axios.post("motor/direction", directionObj);
 };
 
 const handleStop = async (e) => {
   let request = { response: e.type };
   axios.post("motor/stop", request);
-  console.log(request);
 };
 
 function DrivePanel() {
@@ -96,8 +95,6 @@ function Panel() {
 
   const handleBatteryStatus = async () => {
     let response = await axios.get("util/battery");
-
-    console.log(response.data);
     setBattery(response.data.percentage);
     setCharging(response.data.charging);
   };
