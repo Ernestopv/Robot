@@ -79,9 +79,13 @@ body {
 
 .joystick {
   display: inline-block;
+    margin: 2px;
 
-  margin: 2px;
-  touch-action: none;
+}
+
+.card{
+touch-action: none;
+
 }
 
 .centerLabel {

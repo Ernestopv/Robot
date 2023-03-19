@@ -34,7 +34,6 @@ function ContextAwareToggle({ children, eventKey, callback }) {
 
 const handleMove = (e) => {
   let yResult = "";
-
   if (e.y >= 0) {
     yResult = "up";
   }
