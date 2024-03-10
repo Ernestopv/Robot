@@ -39,8 +39,12 @@ public class MotorController : ControllerBase
     [HttpPost("direction")]
     public IActionResult PostDirection([FromBody] RequestDirection go)
     {
-        _logger.LogInformation($"Tank Running!..Angle:{go.Angle} " + $"Direction:{go.Direction}");
+        var direction = HttpContext.Session.GetString("Direction");
+        if (direction == go.Direction) return Ok(go);
+
+        HttpContext.Session.SetString("Direction", go.Direction);
         var response = _motorService.SetDirection(go);
+        _logger.LogInformation($"Tank Running!..Angle:{go.Angle} " + $"Direction:{go.Direction}");
         return Ok(response);
     }
 

@@ -22,6 +22,13 @@ IConfiguration configuration = builder.Configuration;
  builder.Services.Configure<AppSettings>(configuration);
 var appSettings = builder.Configuration.Get<AppSettings>();
 
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "Motor.Session";
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.IsEssential = true;
+});
+
 if (!appSettings!.IsDevelopment)
 {
     builder.WebHost.ConfigureKestrel(
@@ -58,6 +65,7 @@ app.UseCors(x => x
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.MapControllers();
 
