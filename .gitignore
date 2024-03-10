@@ -19,3 +19,5 @@
 /Robot.sln.DotSettings.user
 /.editorconfig
 /Robot.Infrastructure/bin/Release/net6.0
+/.vs/Robot/v17/.suo
+/.vs/Robot/DesignTimeBuild/.dtbcache.v2
